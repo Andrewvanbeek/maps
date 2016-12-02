@@ -1,8 +1,4 @@
 get "/" do
-  erb :map
-end
-
-get "/positions/new" do
   erb :positions
 end
 
