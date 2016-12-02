@@ -5,14 +5,26 @@
   <script src="/js/andrew.js"></script>
 </head>
 <body>
+  <div class="page-header">
+    <h1 style="color: #5bc0de">Alert the people.</h1>
+    <br><br>
+
+  </div>
+  <div class="container">
+    <h3 class="eh">Let people in the world know about the cool spots around.  Leave a marker and leave a comment.  We are all just wandering trying to figure out something to do. -The fake Nomadic  team that definitely is not Andrew.</h3>
+  </div>
+
+<br><br>
+  <div id="ok" class="container">
+  <h3> Go ahead and let them know!
 <form action="/positions" id="positions" method="POST">
-  <input type="text" name="title" placeholder="title"><br><br>
+  <input type="text" name="title" placeholder="Title"><br><br>
   <label>Comments</label><br><br>
   <textarea name="comment" rows="4" cols="50"></textarea><br><br>
   <button>Show my location</button>
 <form action="/positions" method="POST">
 <div id="out"></div>
-
+  </div>
 
 </body>
 </html>

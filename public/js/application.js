@@ -17,6 +17,9 @@ $(document).ready(function() {
       })
       .done(function() {
         console.log("success");
+        $("#position").trigger("reset")
+        $("#ok").append("<h3>You posted your positions.  Click Home!</h3>")
+        $("#positions").hide()
       })
     }
     var spot = navigator.geolocation.getCurrentPosition(handleGetCurrentPosition)
