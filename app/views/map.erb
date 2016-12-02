@@ -9,38 +9,94 @@ width: 100%;
 </style>
 </head>
 <body>
-<h3>My Google Maps Demo</h3>
+<div class="container">
+  <br><br>
+<h2>Check out what is going on!!  Where and What are fellow nomads up to?</h2>
+
+</div>
 <div id="map"></div>
 <script>
+
+var userLocation = function() {
+var coords = {}
+function handleGetCurrentPosition(location){
+  var latitude = location.coords.latitude;
+  var longitude = location.coords.longitude;
+  coords.lat = 40
+  coords.lng = -87.6298
+}
+var place = navigator.geolocation.getCurrentPosition(handleGetCurrentPosition)
+return coords
+};
+
+var mapLocation = userLocation()
+
+
 function initMap() {
 var uluru = {lat: 40, lng: -87.6298};
+console.log(userLocation())
 var map = new google.maps.Map(document.getElementById('map'), {
-  zoom: 4,
-  center: uluru
+  zoom: 10,
+  center: {lat: 41.8781, lng: -87.6298},
 });
 
+
+
+
 <% @positions.each do |position| %>
-  <% p position.title %>
-  var test = <%= position.title %>
   var uluru = {lat: <%= position.latitude %>, lng: <%= position.longitude %>}
   var marker = new google.maps.Marker({
     position: uluru,
     map: map,
+    id: "hey",
     title: '<%= position.title %>',
+    comment: '<%= position.comment %>'
   });
+  var infowindow = new google.maps.InfoWindow();
   google.maps.event.addListener(marker, 'click', function() {
-    alert(this.title + "\n" + this.comment);
-});
+    var a = $("div[title='<%= position.title %>']")
+    console.log('<%= position.title %>')
+    infowindow.setContent('<div><strong>' + '<%= position.title %>' + '</strong><br>' +
+    'Place ID: ' + '<%= position.comment %>' + '<br>' +
+    '<%= position.id %>' + '</div>');
+    infowindow.open(map, this);
+  });
 
   <% end  %>
+  //   map.addListener('center_changed', function() {
+    //   // 3 seconds after the center of the map has changed, pan back to the
+    //   // marker.
+    //   window.setTimeout(function() {
+      //   console.log(mapLocation)
+      //   var lat = mapLocation.lat
+      //   var lng = mapLocation.lng
+      //   var center = {lat: 41.8781, lng: -87.6298}
+
+
+      //     map.panTo(center);
+
+    //   }, 20000);
+  // });
+
+  marker.addListener('click', function() {
+    map.setZoom(12);
+    console.log(marker.getCurrentPosition())
+    map.setCenter(marker.getPosition());
+  });
+
 
 }
+
 </script>
+<br><br>
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDggcG0_ElbSJjrcvr00Mu09pt21JG1elA&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDggcG0_ElbSJjrcvr00Mu09pt21JG1elA&libraries=places&callback=initMap">
 </script>
 </body>
 </html>
+
+
+
 
 
 
